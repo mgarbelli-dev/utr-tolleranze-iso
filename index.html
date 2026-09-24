@@ -188,6 +188,15 @@ details.tol-det[open] > summary::before { content: '▾'; }
 .tol-scrollx { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 3px; }
 .tol-scrollx .tol-chip { white-space: nowrap; }
 body.tol-has-summary { padding-bottom: 78px; }
+.tol-install { display: none; background: var(--blue-dim); border: 1px solid var(--blue); border-radius: var(--r-lg, 10px); padding: 12px 14px; margin-bottom: 12px; font-size: 13px; line-height: 1.45; }
+.tol-install.on { display: block; }
+.tol-install b { color: var(--blue-dark); }
+.tol-install .steps { margin: 6px 0 8px; padding-left: 18px; }
+.tol-install .steps li { margin: 2px 0; }
+.tol-install .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tol-install .tol-chip { font-size: 12px; padding: 6px 12px; }
+.tol-install .tol-chip.main { background: var(--blue-dark); color: #fff; border-color: var(--blue-dark); }
+.tol-install .ico { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; }
 .tol-update { display: none; position: sticky; top: 0; z-index: 30; background: var(--amber-dark); color: #fff; font: 600 12.5px var(--mono, monospace); padding: 9px 14px; border-radius: var(--r, 6px); margin-bottom: 12px; cursor: pointer; text-align: center; }
 .tol-update.on { display: block; }
 @media (max-width: 899px) {
@@ -243,6 +252,10 @@ body.tol-has-summary { padding-bottom: 78px; }
   </header>
   <div class="tol-update" id="tol-update" role="button" data-tx-it="Nuova versione disponibile &mdash; tocca per aggiornare" data-tx-en="New version available &mdash; tap to update">Nuova versione disponibile &mdash; tocca per aggiornare</div>
   <div class="tol-print-title" id="tol-print-title"></div>
+  <div class="tol-install tol-noprint" id="tol-install" hidden>
+    <div id="tol-install-txt"></div>
+    <div class="row" id="tol-install-row"></div>
+  </div>
 
   <!-- ══════════ TOL-ISO:VIEW START — da copiare nel calcolatore (view del tab) ══════════ -->
   <div id="view-tol">
@@ -351,7 +364,7 @@ body.tol-has-summary { padding-bottom: 78px; }
   <div class="ft">
     <span data-tx-it="Riferimento: sistema ISO 286-1:2010 (gradi IT, scostamenti fondamentali, regola &Delta; per i fori K&hellip;ZC) e tabelle ISO 286-2:2010. Campo 0&ndash;500 mm. js/JS = &plusmn;IT/2 esatto (i vecchi regoli arrotondano js7&hellip;js11 al micron intero). Valori verificati contro fonti esterne indipendenti: vedi cartella <em>verifica/</em>. Tabella 4 di ISO 286-1:2010 e il suo Cor.1:2013 letti e applicati il 24/09/2026 (cd, ef, fg fino a 50 mm; ef 18&ndash;30 = &minus;28). Le tabelle di ISO 286-2 e il relativo Cor.1 non sono state confrontate." data-tx-en="Reference: ISO 286-1:2010 system (IT grades, fundamental deviations, &Delta; rule for holes K&hellip;ZC) and ISO 286-2:2010 tables. Range 0&ndash;500 mm. js/JS = exact &plusmn;IT/2 (old slide charts round js7&hellip;js11 to the whole micron). Values checked against independent external sources: see the <em>verifica/</em> folder. Table 4 of ISO 286-1:2010 and its Cor.1:2013 read and applied on 2026-09-24 (cd, ef, fg up to 50 mm; ef 18&ndash;30 = &minus;28). The ISO 286-2 tables and their Cor.1 have not been compared.">Riferimento: sistema ISO 286-1:2010 (gradi IT, scostamenti fondamentali, regola &Delta; per i fori K&hellip;ZC) e tabelle ISO 286-2:2010. Campo 0&ndash;500 mm. js/JS = &plusmn;IT/2 esatto (i vecchi regoli arrotondano js7&hellip;js11 al micron intero). Valori verificati contro fonti esterne indipendenti: vedi cartella <em>verifica/</em>. Tabella 4 di ISO 286-1:2010 e il suo Cor.1:2013 letti e applicati il 24/09/2026 (cd, ef, fg fino a 50 mm; ef 18&ndash;30 = &minus;28). Le tabelle di ISO 286-2 e il relativo Cor.1 non sono state confrontate.</span><br>
     <span data-tx-it="Ispirato al regolo in cartoncino &laquo;Tolleranze ISO&raquo; Talide Utensili. Strumento di consultazione: per il collaudo fa fede la norma." data-tx-en="Inspired by the Talide Utensili cardboard &laquo;ISO Tolerances&raquo; slide chart. Reference tool: the standard prevails for inspection.">Ispirato al regolo in cartoncino &laquo;Tolleranze ISO&raquo; Talide Utensili. Strumento di consultazione: per il collaudo fa fede la norma.</span><br>
-    Tolleranze ISO UTR v3.3 &middot; <a href="?selftest" style="color:inherit;">autotest</a> &middot; <a href="verifica/verifica.html" style="color:inherit;">verifica esterna</a> <span id="tol-selftest-out"></span>
+    Tolleranze ISO UTR v3.4 &middot; <a href="?selftest" style="color:inherit;">autotest</a> &middot; <a href="verifica/verifica.html" style="color:inherit;">verifica esterna</a> <span id="tol-selftest-out"></span>
   </div>
 </div>
 
@@ -1473,7 +1486,7 @@ var TolISO = (function () {
   }
 
   return { limits: limits, fit: fit, dim: dim, formats: formats, parts: parts, devStr: devStr, provenienza: provenienza, NORME: NORME, parse: parse, parseClass: parseClass, mount: mount, setLang: setLang, selfTest: selfTest, uiTest: uiTest, getUI: getUI, printLabel: printLabel,
-           _diagramGeom: diagramGeom, version: '3.3' };
+           _diagramGeom: diagramGeom, version: '3.4' };
 })();
 /* ══════════ TOL-ISO:JS END ══════════ */
 
@@ -1526,6 +1539,47 @@ var TolISO = (function () {
        il file della versione precedente non esiste più e la ricarica dava errore (successo il 24/09 passando da 3.0 a 3.1). */
     navigator.serviceWorker.addEventListener('controllerchange', function () { if (reloading) return; reloading = true; location.replace('./' + location.search); });
   }
+
+  /* ── Aiuto all'installazione: il cliente deve capire al volo come mettere l'icona sulla Home ──
+     iPhone+Safari: 2 passi con l'icona Condividi · iPhone+altro browser: tasto «Apri in Safari» (iOS 17+) + copia link ·
+     Android: vero tasto «Installa» (beforeinstallprompt) · già installata o chiusa dall'utente: niente. */
+  (function () {
+    var box = document.getElementById('tol-install'); if (!box) return;
+    var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+    var dismissed = false; try { dismissed = localStorage.getItem('tolIso.installHint') === 'no'; } catch (e) {}
+    if (standalone || dismissed || !/^https?:$/.test(location.protocol)) return;
+    var ua = navigator.userAgent, isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isIOSSafari = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/.test(ua), isAndroid = /Android/.test(ua);
+    var L = (document.documentElement.lang === 'en') ? 'en' : 'it';
+    var T = { it: { title: 'Mettila tra le tue app:', s1: 'tocca <b>Condividi</b> <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 8l5-5 5 5M5 12v8h14v-8"/></svg> in basso',
+                    s2: 'scorri e tocca <b>Aggiungi alla schermata Home</b>, poi <b>Aggiungi</b>', other: 'Su iPhone l\'icona sulla Home si crea da <b>Safari</b>.', open: 'Apri in Safari', copy: 'Copia il link', copied: 'copiato', inst: 'Installa l\'app', later: 'Non ora', never: 'Non mostrare più',
+                    android: 'Installala come app: si apre dall\'icona e funziona anche senza rete.' },
+              en: { title: 'Add it to your apps:', s1: 'tap <b>Share</b> <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 8l5-5 5 5M5 12v8h14v-8"/></svg> at the bottom',
+                    s2: 'scroll and tap <b>Add to Home Screen</b>, then <b>Add</b>', other: 'On iPhone the Home Screen icon is created from <b>Safari</b>.', open: 'Open in Safari', copy: 'Copy link', copied: 'copied', inst: 'Install app', later: 'Not now', never: 'Don\'t show again',
+                    android: 'Install it as an app: it opens from the icon and works offline.' } }[L];
+    var txt = document.getElementById('tol-install-txt'), row = document.getElementById('tol-install-row'), deferred = null;
+    var base = location.href.replace(/[^\/]*(\?.*)?$/, '');
+    function chip(label, cls, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'tol-chip ' + (cls || ''); b.innerHTML = label; b.addEventListener('click', fn); row.appendChild(b); return b; }
+    function close(forever) { box.classList.remove('on'); box.hidden = true; if (forever) { try { localStorage.setItem('tolIso.installHint', 'no'); } catch (e) {} } }
+    function copyLink(b) { var done = function () { b.textContent = '✓ ' + T.copied; }; if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(base).then(done, function () {}); else { window.prompt('Link', base); } }
+    function show(mode) {
+      row.innerHTML = '';
+      if (mode === 'ios-safari') { txt.innerHTML = '<b>' + T.title + '</b><ol class="steps"><li>' + T.s1 + '</li><li>' + T.s2 + '</li></ol>'; }
+      else if (mode === 'ios-other') { txt.innerHTML = '<b>' + T.title + '</b> ' + T.other + '<ol class="steps"><li>' + T.s1 + '</li><li>' + T.s2 + '</li></ol>';
+        chip(T.open, 'main', function () { location.href = 'x-safari-' + base; });   /* iOS 17+: apre lo stesso indirizzo in Safari */
+        chip(T.copy, '', function () { copyLink(this); }); }
+      else if (mode === 'android') { txt.innerHTML = '<b>' + T.title + '</b> ' + T.android;
+        chip(T.inst, 'main', function () { if (!deferred) return; deferred.prompt(); deferred.userChoice.then(function () { deferred = null; close(true); }); }); }
+      chip(T.later, '', function () { close(false); }); chip(T.never, '', function () { close(true); });
+      box.hidden = false; box.classList.add('on');
+    }
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; show('android'); });
+    window.addEventListener('appinstalled', function () { close(true); });
+    window.tolInstallHint = { show: show, close: close };   /* per prove e autotest */
+    if (isIOSSafari) show('ios-safari'); else if (isIOS) show('ios-other');
+    /* Android senza beforeinstallprompt (già installata o browser senza supporto): nessun riquadro */
+    if (!isIOS && !isAndroid) return;
+  })();
 
   if (/[?&]selftest/.test(location.search)) {
     var r = TolISO.selfTest(), u = TolISO.uiTest();
