@@ -1552,10 +1552,10 @@ var TolISO = (function () {
     var isIOSSafari = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/.test(ua), isAndroid = /Android/.test(ua);
     var L = (document.documentElement.lang === 'en') ? 'en' : 'it';
     var T = { it: { title: 'Mettila tra le tue app:', s1: 'tocca <b>Condividi</b> <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 8l5-5 5 5M5 12v8h14v-8"/></svg> in basso',
-                    s2: 'scorri e tocca <b>Aggiungi alla schermata Home</b>, poi <b>Aggiungi</b>', other: 'Su iPhone l\'icona sulla Home si crea da <b>Safari</b>.', open: 'Apri in Safari', copy: 'Copia il link', copied: 'copiato', inst: 'Installa l\'app', later: 'Non ora', never: 'Non mostrare più',
+                    s2: 'scorri la lista e tocca <b>Aggiungi alla schermata Home</b>, poi <b>Aggiungi</b>', s1chrome: 'tocca i <b>tre puntini</b> e poi <b>Condividi&hellip;</b>', other: '(serve iOS 16.4 o più recente)', open: 'Apri in Safari', copy: 'Copia il link', copied: 'copiato', inst: 'Installa l\'app', later: 'Non ora', never: 'Non mostrare più',
                     android: 'Installala come app: si apre dall\'icona e funziona anche senza rete.' },
               en: { title: 'Add it to your apps:', s1: 'tap <b>Share</b> <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 8l5-5 5 5M5 12v8h14v-8"/></svg> at the bottom',
-                    s2: 'scroll and tap <b>Add to Home Screen</b>, then <b>Add</b>', other: 'On iPhone the Home Screen icon is created from <b>Safari</b>.', open: 'Open in Safari', copy: 'Copy link', copied: 'copied', inst: 'Install app', later: 'Not now', never: 'Don\'t show again',
+                    s2: 'scroll the list and tap <b>Add to Home Screen</b>, then <b>Add</b>', s1chrome: 'tap the <b>three dots</b>, then <b>Share&hellip;</b>', other: '(needs iOS 16.4 or later)', open: 'Open in Safari', copy: 'Copy link', copied: 'copied', inst: 'Install app', later: 'Not now', never: 'Don\'t show again',
                     android: 'Install it as an app: it opens from the icon and works offline.' } }[L];
     var txt = document.getElementById('tol-install-txt'), row = document.getElementById('tol-install-row'), deferred = null;
     var base = location.href.replace(/[^\/]*(\?.*)?$/, '');
@@ -1565,8 +1565,8 @@ var TolISO = (function () {
     function show(mode) {
       row.innerHTML = '';
       if (mode === 'ios-safari') { txt.innerHTML = '<b>' + T.title + '</b><ol class="steps"><li>' + T.s1 + '</li><li>' + T.s2 + '</li></ol>'; }
-      else if (mode === 'ios-other') { txt.innerHTML = '<b>' + T.title + '</b> ' + T.other + '<ol class="steps"><li>' + T.s1 + '</li><li>' + T.s2 + '</li></ol>';
-        chip(T.open, 'main', function () { location.href = 'x-safari-' + base; });   /* iOS 17+: apre lo stesso indirizzo in Safari */
+      else if (mode === 'ios-other') { /* Chrome, Firefox, Edge su iPhone: il foglio Condividi di iOS ha «Aggiungi alla schermata Home» da iOS 16.4 */
+        txt.innerHTML = '<b>' + T.title + '</b> ' + T.other + '<ol class="steps"><li>' + T.s1chrome + '</li><li>' + T.s2 + '</li></ol>';
         chip(T.copy, '', function () { copyLink(this); }); }
       else if (mode === 'android') { txt.innerHTML = '<b>' + T.title + '</b> ' + T.android;
         chip(T.inst, 'main', function () { if (!deferred) return; deferred.prompt(); deferred.userChoice.then(function () { deferred = null; close(true); }); }); }
