@@ -1,6 +1,6 @@
 /* Service worker — generato da genera_pwa.py per la versione 3.3. NON modificare a mano. */
 var VERSION = '3.3', CACHE = 'toliso-' + VERSION;
-var FILES = ["./", "./index.html", "./Tolleranze_ISO_UTR_3.3.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
+var FILES = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }));   /* niente skipWaiting: l'aggiornamento lo decide chi usa l'app */
 });
