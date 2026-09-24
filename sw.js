@@ -13,12 +13,23 @@ self.addEventListener('message', function (e) { if (e.data === 'skipWaiting') se
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
   var nav = e.request.mode === 'navigate';
+  if (nav) {
+    /* PAGINE: prima la rete (così un aggiornamento arriva alla prima apertura), poi la cache (senza rete).
+       Mai rispondere con «niente»: in ultima istanza si ritorna l'indice in cache, che è l'app intera. */
+    e.respondWith(fetch(e.request).then(function (res) {
+      if (res && res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(e.request, copy); }); return res; }
+      return caches.match(e.request, { ignoreSearch: true }).then(function (hit) { return hit || caches.match('./index.html'); }).then(function (hit) { return hit || res; });
+    }).catch(function () {
+      return caches.match(e.request, { ignoreSearch: true }).then(function (hit) { return hit || caches.match('./index.html'); });
+    }));
+    return;
+  }
+  /* RISORSE (manifest, icone): prima la cache, poi la rete */
   e.respondWith(caches.match(e.request, { ignoreSearch: true }).then(function (hit) {
     if (hit) return hit;
     return fetch(e.request).then(function (res) {
-      if (res && res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(e.request, copy); }); return res; }
-      /* pagina di una versione vecchia (404) → si riparte dall'indice, che rimanda alla versione corrente */
-      return nav ? caches.match('./index.html').then(function (ix) { return ix || res; }) : res;
-    }).catch(function (err) { if (nav) return caches.match('./index.html'); throw err; });
+      if (res && res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(e.request, copy); }); }
+      return res;
+    });
   }));
 });
