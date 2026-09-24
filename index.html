@@ -136,7 +136,7 @@ body { background: var(--bg); color: var(--text); font: 14px/1.45 var(--sans); p
 .tol-recent .tol-lbl { flex: none; margin-right: 2px; }
 .tol-recent .tol-chip { white-space: nowrap; flex: none; }
 .tol-fits { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
-.tol-fitrow { display: grid; grid-template-columns: 74px 84px 1fr; gap: 8px; align-items: baseline; border: 1px solid var(--border); border-radius: var(--r, 6px); background: var(--surface-2, #f7f6f4); padding: 6px 9px; text-align: left; cursor: pointer; font-family: var(--sans); color: var(--text); }
+.tol-fitrow { display: grid; grid-template-columns: 104px 84px 1fr; gap: 8px; align-items: baseline; border: 1px solid var(--border); border-radius: var(--r, 6px); background: var(--surface-2, #f7f6f4); padding: 6px 9px; text-align: left; cursor: pointer; font-family: var(--sans); color: var(--text); }
 .tol-fitrow b { font: 700 13px var(--mono, monospace); }
 .tol-fitrow i { font: 700 10px var(--mono, monospace); font-style: normal; letter-spacing: .3px; text-transform: uppercase; }
 .tol-fitrow span { font-size: 11.5px; line-height: 1.3; color: var(--text-muted); }
@@ -151,7 +151,7 @@ details.tol-det[open] > summary::before { content: '▾'; }
 .tol-sum-txt .ok { color: oklch(85% .12 160); font-weight: 700; } .tol-sum-txt .ko { color: oklch(80% .15 25); font-weight: 700; }
 .tol-summary { flex-wrap: wrap; } .tol-sum-txt { flex: 1 1 220px; } .tol-summary .tol-chip { flex: none; }
 @media (max-width: 899px) { body.tol-has-summary { padding-bottom: 118px; } .tol-sum-txt { font-size: 12px; } }
-@media (max-width: 899px) { .tol-fitrow { grid-template-columns: 66px 1fr; } .tol-fitrow span { grid-column: 1 / -1; } .tol-mbox .tol-inp { width: 150px; } }
+@media (max-width: 899px) { .tol-fitrow { grid-template-columns: 98px 1fr; } .tol-fitrow span { grid-column: 1 / -1; } .tol-mbox .tol-inp { width: 150px; } }
 @media print { .tol-recent, details.tol-det { display: none !important; } }   /* «µm» in maiuscolo diventerebbe «MM» */
 .tol-grid > div { min-width: 0; }   /* le pillole scorrevoli non devono allargare la colonna della griglia */
 .tol-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
@@ -188,6 +188,21 @@ details.tol-det[open] > summary::before { content: '▾'; }
 .tol-scrollx { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 3px; }
 .tol-scrollx .tol-chip { white-space: nowrap; }
 body.tol-has-summary { padding-bottom: 78px; }
+.tol-fitdraw { width: 100%; max-width: 660px; height: auto; display: block; margin: 4px 0 10px; }
+.tol-fitdraw text { font-family: var(--mono, monospace); }
+.tol-dbox .tol-inp { width: 250px; }
+.tol-dbox .tol-inp input { font-size: 15px; }
+.tol-dbox .tol-inp input::placeholder { font-weight: 400; color: var(--text-faint); font-size: 12px; }
+.btn-help { border: 1px solid var(--border); border-radius: 20px; background: transparent; font: 700 12px var(--mono); width: 30px; height: 26px; color: var(--text-muted); cursor: pointer; }
+.tol-help { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg, 10px); box-shadow: var(--sh); padding: 14px 16px; margin-bottom: 12px; font-size: 13.5px; line-height: 1.5; }
+.tol-help.on { display: block; }
+.tol-help ol { margin: 6px 0 10px; padding-left: 20px; } .tol-help li { margin: 4px 0; } .tol-help code { font: 700 12.5px var(--mono); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+.tol-alert { display: none; background: var(--red-dim); border: 1px solid var(--red); color: var(--red-dark); border-radius: var(--r, 6px); padding: 9px 12px; margin-bottom: 12px; font: 600 12.5px/1.45 var(--mono); }
+.tol-alert.on { display: block; }
+.tol-check { font: 10.5px var(--mono); } .tol-check.ok { color: var(--green-dark); } .tol-check.ko { color: var(--red-dark); font-weight: 700; }
+.tol-net { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); vertical-align: 0; margin-right: 4px; } .tol-net.off { background: var(--amber); }
+.tol-fitrow .pict { width: 26px; height: 18px; vertical-align: -4px; margin-right: 2px; }
+@media (max-width: 899px) { .tol-dbox .tol-inp { width: 100%; } .tol-dbox { width: 100%; } }
 .tol-install { display: none; background: var(--blue-dim); border: 1px solid var(--blue); border-radius: var(--r-lg, 10px); padding: 12px 14px; margin-bottom: 12px; font-size: 13px; line-height: 1.45; }
 .tol-install.on { display: block; }
 .tol-install b { color: var(--blue-dark); }
@@ -247,11 +262,23 @@ body.tol-has-summary { padding-bottom: 78px; }
         <button class="lang-chip active" data-lang="it">IT</button>
         <button class="lang-chip" data-lang="en">EN</button>
       </div>
+      <button class="btn-help" type="button" id="tol-help-btn" aria-label="Come si usa" title="Come si usa">?</button>
       <button class="btn-print" type="button" id="tol-print-btn" data-tx-it="Stampa" data-tx-en="Print">Stampa</button>
     </div>
   </header>
   <div class="tol-update" id="tol-update" role="button" data-tx-it="Nuova versione disponibile &mdash; tocca per aggiornare" data-tx-en="New version available &mdash; tap to update">Nuova versione disponibile &mdash; tocca per aggiornare</div>
   <div class="tol-print-title" id="tol-print-title"></div>
+  <div class="tol-alert tol-noprint" id="tol-alert" role="alert"></div>
+  <div class="tol-help tol-noprint" id="tol-help">
+    <b data-tx-it="Come si usa" data-tx-en="How to use">Come si usa</b>
+    <ol>
+      <li data-tx-it="Nel campo in alto scrivi quello che leggi sul disegno: <code>25</code> (solo il diametro), <code>25 H7</code> (foro), <code>40 g6</code> (albero) o <code>25 H7/g6</code> (accoppiamento). L'app va da sola nella scheda giusta." data-tx-en="In the top field type what you read on the drawing: <code>25</code> (diameter only), <code>25 H7</code> (hole), <code>40 g6</code> (shaft) or <code>25 H7/g6</code> (fit). The app switches to the right tab by itself.">Nel campo in alto scrivi quello che leggi sul disegno: <code>25</code> (solo il diametro), <code>25 H7</code> (foro), <code>40 g6</code> (albero) o <code>25 H7/g6</code> (accoppiamento). L'app va da sola nella scheda giusta.</li>
+      <li data-tx-it="FORO e ALBERO mostrano la tabella della fascia: tocca una casella e in basso leggi scostamenti e dimensioni limite, con <b>Copia quota</b> e <b>Condividi</b>." data-tx-en="HOLE and SHAFT show the table for the size range: tap a cell and read deviations and limit sizes at the bottom, with <b>Copy</b> and <b>Share</b>.">FORO e ALBERO mostrano la tabella della fascia: tocca una casella e in basso leggi scostamenti e dimensioni limite, con <b>Copia quota</b> e <b>Condividi</b>.</li>
+      <li data-tx-it="Al collaudo scrivi la misura letta nel campo <b>misurato</b>: l'app dice DENTRO o FUORI e di quanto." data-tx-en="At inspection type the reading into the <b>measured</b> field: the app says IN or OUT and by how much.">Al collaudo scrivi la misura letta nel campo <b>misurato</b>: l'app dice DENTRO o FUORI e di quanto.</li>
+      <li data-tx-it="ACCOPPIAMENTO disegna albero e foro con gioco o interferenza, e propone gli accoppiamenti consigliati dalla norma." data-tx-en="FIT draws shaft and hole with clearance or interference, and lists the fits recommended by the standard.">ACCOPPIAMENTO disegna albero e foro con gioco o interferenza, e propone gli accoppiamenti consigliati dalla norma.</li>
+    </ol>
+    <button type="button" class="tol-chip" id="tol-help-close" data-tx-it="Chiudi" data-tx-en="Close">Chiudi</button>
+  </div>
   <div class="tol-install tol-noprint" id="tol-install" hidden>
     <div id="tol-install-txt"></div>
     <div class="row" id="tol-install-row"></div>
@@ -268,7 +295,7 @@ body.tol-has-summary { padding-bottom: 78px; }
 
     <div class="tol-toolbar">
       <div class="tol-dbox">
-        <div class="tol-inp" id="tol-d-wrap"><span class="tol-unit tol-unit-l">&Oslash;</span><input id="tol-d" type="text" inputmode="decimal" autocomplete="off" value="25" aria-label="Dimensione nominale"><span class="tol-unit">mm</span></div>
+        <div class="tol-inp" id="tol-d-wrap"><span class="tol-unit tol-unit-l">&Oslash;</span><input id="tol-d" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" value="25" placeholder="25 · 25 H7 · 25 H7/g6" aria-label="Diametro o quota"><span class="tol-unit">mm</span></div>
         <div class="tol-band" id="tol-band"></div>
       </div>
       <div class="tol-mbox" id="tol-mbox"><div class="tol-inp" id="tol-m-wrap"><input id="tol-m" type="text" inputmode="decimal" autocomplete="off" placeholder="misurato" data-ph-it="misurato" data-ph-en="measured" aria-label="Misurato"><span class="tol-unit">mm</span></div></div>
@@ -335,6 +362,7 @@ body.tol-has-summary { padding-bottom: 78px; }
           <div>
             <div class="tol-msg" id="tol-msg"></div>
             <div id="tol-out"></div>
+            <div id="tol-fitdraw-box"></div>
             <div id="tol-diagram-box"></div>
           </div>
 
@@ -364,7 +392,8 @@ body.tol-has-summary { padding-bottom: 78px; }
   <div class="ft">
     <span data-tx-it="Riferimento: sistema ISO 286-1:2010 (gradi IT, scostamenti fondamentali, regola &Delta; per i fori K&hellip;ZC) e tabelle ISO 286-2:2010. Campo 0&ndash;500 mm. js/JS = &plusmn;IT/2 esatto (i vecchi regoli arrotondano js7&hellip;js11 al micron intero). Valori verificati contro fonti esterne indipendenti: vedi cartella <em>verifica/</em>. Tabella 4 di ISO 286-1:2010 e il suo Cor.1:2013 letti e applicati il 24/09/2026 (cd, ef, fg fino a 50 mm; ef 18&ndash;30 = &minus;28). Le tabelle di ISO 286-2 e il relativo Cor.1 non sono state confrontate." data-tx-en="Reference: ISO 286-1:2010 system (IT grades, fundamental deviations, &Delta; rule for holes K&hellip;ZC) and ISO 286-2:2010 tables. Range 0&ndash;500 mm. js/JS = exact &plusmn;IT/2 (old slide charts round js7&hellip;js11 to the whole micron). Values checked against independent external sources: see the <em>verifica/</em> folder. Table 4 of ISO 286-1:2010 and its Cor.1:2013 read and applied on 2026-09-24 (cd, ef, fg up to 50 mm; ef 18&ndash;30 = &minus;28). The ISO 286-2 tables and their Cor.1 have not been compared.">Riferimento: sistema ISO 286-1:2010 (gradi IT, scostamenti fondamentali, regola &Delta; per i fori K&hellip;ZC) e tabelle ISO 286-2:2010. Campo 0&ndash;500 mm. js/JS = &plusmn;IT/2 esatto (i vecchi regoli arrotondano js7&hellip;js11 al micron intero). Valori verificati contro fonti esterne indipendenti: vedi cartella <em>verifica/</em>. Tabella 4 di ISO 286-1:2010 e il suo Cor.1:2013 letti e applicati il 24/09/2026 (cd, ef, fg fino a 50 mm; ef 18&ndash;30 = &minus;28). Le tabelle di ISO 286-2 e il relativo Cor.1 non sono state confrontate.</span><br>
     <span data-tx-it="Ispirato al regolo in cartoncino &laquo;Tolleranze ISO&raquo; Talide Utensili. Strumento di consultazione: per il collaudo fa fede la norma." data-tx-en="Inspired by the Talide Utensili cardboard &laquo;ISO Tolerances&raquo; slide chart. Reference tool: the standard prevails for inspection.">Ispirato al regolo in cartoncino &laquo;Tolleranze ISO&raquo; Talide Utensili. Strumento di consultazione: per il collaudo fa fede la norma.</span><br>
-    Tolleranze ISO UTR v3.4 &middot; <a href="?selftest" style="color:inherit;">autotest</a> &middot; <a href="verifica/verifica.html" style="color:inherit;">verifica esterna</a> <span id="tol-selftest-out"></span>
+<span id="tol-net-ind"><span class="tol-net" id="tol-net"></span><span id="tol-net-txt">online</span></span> &middot; <span class="tol-check" id="tol-check"></span><br>
+    Tolleranze ISO UTR v3.5 &middot; <a href="?selftest" style="color:inherit;">autotest</a> &middot; <a href="verifica/verifica.html" style="color:inherit;">verifica esterna</a> <span id="tol-selftest-out"></span>
   </div>
 </div>
 
@@ -755,7 +784,7 @@ var TolISO = (function () {
     });
   }
   function getState() {
-    var D = parseFloat(String($('tol-d').value).replace(',', '.'));
+    var D = parseFloat(String($('tol-d').value).replace(',', '.'));   /* «25 H7/g6»: il numero iniziale è il Ø, le lettere le gestisce applyD() */
     var hl = $('tol-h-let').value, sl = $('tol-s-let').value;
     return { D: D, hole: hl ? { kind: 'hole', letter: hl, grade: parseInt($('tol-h-gr').value, 10) } : null,
              shaft: sl ? { kind: 'shaft', letter: sl, grade: parseInt($('tol-s-gr').value, 10) } : null };
@@ -840,6 +869,66 @@ var TolISO = (function () {
     return s + '</svg>';
   }
 
+  /* ── DISEGNO DELL'ACCOPPIAMENTO: sezione assiale di albero e foro, con le zone di tolleranza e il gioco/interferenza.
+     Geometria calcolata: Ø nominale = DPX px; ogni scostamento sposta il bordo di dev/2 (è un diametro) × s px/µm,
+     con s scelto perché il più grande scostamento valga 28 px. L'ingrandimento rispetto al vero è dichiarato nel disegno. ── */
+  function fitDrawGeom(H, S, D) {
+    var DPX = 150, CY = 150, X0 = 120, X1 = 480, m = 1;
+    [H, S].forEach(function (z) { if (z) m = Math.max(m, Math.abs(z.up), Math.abs(z.lo)); });
+    var s = 28 / m, truePx = DPX / (D * 1000), k = s / truePx;
+    function yTop(dev) { return CY - (DPX / 2 + dev * s / 2); }
+    return { DPX: DPX, CY: CY, X0: X0, X1: X1, s: s, k: k, yTop: yTop,
+             hole: H ? { max: yTop(H.up), min: yTop(H.lo) } : null, shaft: S ? { max: yTop(S.up), min: yTop(S.lo) } : null };
+  }
+  function fitDrawing(H, S, D) {
+    if (!H && !S) return '';
+    var g = fitDrawGeom(H, S, D), W = 660, HH = 300, o = '', CY = g.CY, X0 = g.X0, X1 = g.X1, f2 = function (v) { return v.toFixed(2); };
+    o += '<svg class="tol-fitdraw" viewBox="0 0 ' + W + ' ' + HH + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + (lang === 'it' ? 'Sezione albero e foro' : 'Shaft and hole section') + '">';
+    var HALO = ' paint-order="stroke" stroke="var(--surface)" stroke-width="3" stroke-linejoin="round"';   /* alone chiaro: leggibile anche sul tratteggio */
+    function lbl(x, y, anchor, size, color, txt, bold) { return '<text x="' + f2(x) + '" y="' + f2(y) + '" text-anchor="' + anchor + '" font-size="' + size + '"' + (bold ? ' font-weight="700"' : '') + ' fill="' + color + '"' + HALO + '>' + txt + '</text>'; }
+    function twoLabels(x, anchor, yA, yB, color, tA, tB) { var ya = yA + 4, yb = Math.max(yB + 4, ya + 13); return lbl(x, ya, anchor, 10.5, color, tA, true) + lbl(x, yb, anchor, 10.5, color, tB, true); }
+    o += '<defs><pattern id="tolHatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="var(--blue-dark)" stroke-width="1" opacity=".55"/></pattern>' +
+         '<pattern id="tolHatchS" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="8" stroke="var(--amber-dark)" stroke-width="1" opacity=".55"/></pattern></defs>';
+    var mirror = function (y) { return 2 * CY - y; };
+    if (g.hole) {
+      /* materiale del pezzo forato: sicuramente presente oltre il foro MASSIMO; forse presente nella zona di tolleranza (tra max e min) */
+      o += '<rect x="' + X0 + '" y="22" width="' + (X1 - X0) + '" height="' + f2(g.hole.max - 22) + '" fill="url(#tolHatch)" stroke="var(--blue-dark)" stroke-width="1.2"/>';
+      o += '<rect x="' + X0 + '" y="' + f2(mirror(g.hole.max)) + '" width="' + (X1 - X0) + '" height="' + f2(HH - 22 - mirror(g.hole.max)) + '" fill="url(#tolHatch)" stroke="var(--blue-dark)" stroke-width="1.2"/>';
+      o += '<rect x="' + X0 + '" y="' + f2(g.hole.max) + '" width="' + (X1 - X0) + '" height="' + f2(g.hole.min - g.hole.max) + '" fill="var(--blue-dim)" stroke="var(--blue)" stroke-width="1" stroke-dasharray="4 3"/>';
+      o += '<rect x="' + X0 + '" y="' + f2(mirror(g.hole.min)) + '" width="' + (X1 - X0) + '" height="' + f2(g.hole.min - g.hole.max) + '" fill="var(--blue-dim)" stroke="var(--blue)" stroke-width="1" stroke-dasharray="4 3"/>';
+      o += twoLabels(X0 - 8, 'end', g.hole.max, g.hole.min, 'var(--blue-dark)', (H.letter + H.grade) + ' max ' + um(H.up), 'min ' + um(H.lo));
+    }
+    if (g.shaft) {
+      var xs0 = g.hole ? X0 - 70 : X0, xs1 = g.hole ? X1 + 70 : X1;
+      /* albero: sicuramente presente fino al MINIMO; forse presente nella zona di tolleranza (tra min e max) */
+      o += '<rect x="' + xs0 + '" y="' + f2(g.shaft.min) + '" width="' + (xs1 - xs0) + '" height="' + f2(mirror(g.shaft.min) - g.shaft.min) + '" fill="url(#tolHatchS)" stroke="var(--amber-dark)" stroke-width="1.2"/>';
+      o += '<rect x="' + xs0 + '" y="' + f2(g.shaft.max) + '" width="' + (xs1 - xs0) + '" height="' + f2(g.shaft.min - g.shaft.max) + '" fill="var(--amber-dim)" stroke="var(--amber-dark)" stroke-width="1" stroke-dasharray="4 3"/>';
+      o += '<rect x="' + xs0 + '" y="' + f2(mirror(g.shaft.min)) + '" width="' + (xs1 - xs0) + '" height="' + f2(g.shaft.min - g.shaft.max) + '" fill="var(--amber-dim)" stroke="var(--amber-dark)" stroke-width="1" stroke-dasharray="4 3"/>';
+      o += twoLabels(xs1 + 8, 'start', g.shaft.max, g.shaft.min, 'var(--amber-dark)', (S.letter + S.grade) + ' max ' + um(S.up), 'min ' + um(S.lo));
+    }
+    /* asse e linea dello zero (Ø nominale) */
+    o += '<line x1="30" x2="' + (W - 30) + '" y1="' + CY + '" y2="' + CY + '" stroke="var(--text-faint)" stroke-width="1" stroke-dasharray="12 4 2 4"/>';
+    var y0 = g.yTop(0);
+    o += '<line x1="' + (X0 - 4) + '" x2="' + (X1 + 4) + '" y1="' + f2(y0) + '" y2="' + f2(y0) + '" stroke="var(--text)" stroke-width="1.4"/>';
+    o += lbl(X0 + 6, y0 - 4, 'start', 10, 'var(--text)', 'Ø' + esc(num(D, 3).replace(/[.,]?0+$/, '')) + ' = 0', true);
+    /* gioco / interferenza al bordo superiore: fra albero MAX e foro MIN (caso peggiore) e fra albero MIN e foro MAX (caso migliore) */
+    if (g.hole && g.shaft) {
+      var f = fit(D, H, S), xm = X1 + 22;
+      var yA = g.shaft.max, yB = g.hole.min, top = Math.min(yA, yB), h = Math.abs(yA - yB), inter = g.shaft.max < g.hole.min;
+      if (h > 0.5) o += '<rect x="' + X0 + '" y="' + f2(top) + '" width="' + (X1 - X0) + '" height="' + f2(h) + '" fill="' + (inter ? 'var(--red)' : 'var(--green)') + '" opacity=".35"/>';
+      var lblTxt = inter ? ((lang === 'it' ? 'interferenza max ' : 'max interference ') + umAbs(f.intMax) + ' µm') : ((lang === 'it' ? 'gioco min ' : 'min clearance ') + umAbs(f.clrMin) + ' µm');
+      o += lbl((X0 + X1) / 2, h >= 14 ? top + h / 2 + 4 : top + h + 12, 'middle', 10.5, inter ? 'var(--red-dark)' : 'var(--green-dark)', lblTxt, true);
+      var t2 = f.type === 'clearance' ? (lang === 'it' ? 'gioco max ' : 'max clearance ') + umAbs(f.clrMax) + ' µm' : (f.type === 'interference' ? (lang === 'it' ? 'interferenza min ' : 'min interference ') + umAbs(f.intMin) + ' µm' : (lang === 'it' ? 'gioco max ' : 'max clearance ') + umAbs(f.clrMax) + ' µm');
+      var yb2 = mirror(top) - (h >= 14 ? h / 2 - 4 : -12);
+      o += lbl((X0 + X1) / 2, yb2, 'middle', 10.5, 'var(--text-muted)', t2, false);
+    }
+    o += '<text x="30" y="' + (HH - 8) + '" font-size="9.5" fill="var(--text-faint)">' + (lang === 'it' ? 'sezione assiale · scostamenti ingranditi ×' : 'axial section · deviations magnified ×') + Math.round(g.k) + ' · ' + (lang === 'it' ? 'tratteggio = materiale certo · fascia chiara = zona di tolleranza · linea 0 = Ø nominale' : 'hatch = certain material · light band = tolerance zone · line 0 = nominal Ø') + '</text>';
+    return o + '</svg>';
+  }
+  var PICT = { clearance: '<svg class="pict" viewBox="0 0 26 18"><rect x="1" y="1" width="24" height="16" fill="none" stroke="var(--blue-dark)"/><rect x="1" y="6" width="24" height="6" fill="var(--amber-dark)"/></svg>',
+               transition: '<svg class="pict" viewBox="0 0 26 18"><rect x="1" y="1" width="24" height="16" fill="none" stroke="var(--blue-dark)"/><rect x="1" y="4.5" width="24" height="9" fill="var(--amber-dark)"/></svg>',
+               interference: '<svg class="pict" viewBox="0 0 26 18"><rect x="1" y="1" width="24" height="16" fill="none" stroke="var(--blue-dark)"/><rect x="1" y="2.5" width="24" height="13" fill="var(--amber-dark)"/><rect x="1" y="2.5" width="24" height="1.5" fill="var(--red)"/><rect x="1" y="14" width="24" height="1.5" fill="var(--red)"/></svg>' };
+
   /* ── Testi della UI v3.0 (schede, filtro, fasce, riepilogo) ── */
   var TU = { it: { titleHole: 'Tolleranze FORO — scostamenti superiore e inferiore in µm (1/1000 mm)', titleShaft: 'Tolleranze ALBERO — scostamenti superiore e inferiore in µm (1/1000 mm)',
                    band: 'fascia', bandNo: 'Ø da 0 a 500 mm', bandOf: 'fascia del Ø', bandOther: 'altra fascia', na: 'non prevista', pick: 'tocca una casella per il riepilogo', printHole: 'FORI', printShaft: 'ALBERI' },
@@ -903,7 +992,8 @@ var TolISO = (function () {
     FITS.forEach(function (f) {
       var pair = f[0] + '/' + f[1], typ = '', col = '', na = false;
       if (dOk) { var ph = parseClass(f[0]), ps = parseClass(f[1]), r = fit(st.D, ph, ps); if (r && r.type) { typ = r.type === 'clearance' ? tu('clr') : (r.type === 'transition' ? tu('trn') : tu('itf')); col = r.type === 'clearance' ? 'tol-c-green' : (r.type === 'transition' ? 'tol-c-amber' : 'tol-c-red'); } else na = true; }
-      h += '<button type="button" class="tol-fitrow' + (pair === cur ? ' on' : '') + (na ? ' na' : '') + '" data-fit="' + pair + '"' + (na ? ' disabled' : '') + '><b>' + pair + '</b><i class="' + col + '">' + typ + '</i><span>' + esc(lang === 'it' ? f[2] : f[3]) + '</span></button>';
+      var pict = (dOk && !na && r && r.type) ? PICT[r.type] : '';
+      h += '<button type="button" class="tol-fitrow' + (pair === cur ? ' on' : '') + (na ? ' na' : '') + '" data-fit="' + pair + '"' + (na ? ' disabled' : '') + '><b>' + pict + pair + '</b><i class="' + col + '">' + typ + '</i><span>' + esc(lang === 'it' ? f[2] : f[3]) + '</span></button>';
     });
     box.innerHTML = h;
   }
@@ -1056,6 +1146,7 @@ var TolISO = (function () {
     if (!out && !msgs.length) out = '<div class="tol-empty">' + t('empty') + '</div>';
     $('tol-out').innerHTML = out;
     $('tol-diagram-box').innerHTML = diagram(zones);
+    $('tol-fitdraw-box').innerHTML = (dOk && zones.length) ? fitDrawing(zones.filter(function (z) { return z.kind === 'hole'; })[0] || null, zones.filter(function (z) { return z.kind === 'shaft'; })[0] || null, st.D) : '';
     var m = $('tol-msg'); m.innerHTML = msgs.map(esc).join('<br>'); m.classList.toggle('on', msgs.length > 0);
     ['hole', 'shaft'].forEach(function (k) {
       var cur = st[k] ? st[k].letter + st[k].grade : '';
@@ -1141,6 +1232,10 @@ var TolISO = (function () {
       $(id).addEventListener('input', render); $(id).addEventListener('change', render);
     });
     ['input', 'change'].forEach(function (ev) { $('tol-d').addEventListener(ev, function () { viewFi = -1; buildCards(); render(); }); });
+    /* campo unico: se contiene una classe («25 H7», «40 g6», «25 H7/g6») la applica e va nella scheda giusta (Invio o uscita dal campo) */
+    function applyD() { var v = $('tol-d').value.trim(); if (!/[a-z]/i.test(v)) return; var p = parse(v); if (!p) { $('tol-d-wrap').classList.add('tol-bad'); return; } applyRecent(v); $('tol-d').blur(); }
+    $('tol-d').addEventListener('keydown', function (e) { if (e.key === 'Enter') applyD(); });
+    $('tol-d').addEventListener('change', applyD);
     ['input', 'change'].forEach(function (ev) { $('tol-m').addEventListener(ev, render); });
     $('tol-quick').addEventListener('keydown', function (e) { if (e.key === 'Enter') applyQuick(); });
     $('tol-quick').addEventListener('change', applyQuick);
@@ -1177,6 +1272,7 @@ var TolISO = (function () {
   }
   function printLabel() { return side === 'hole' ? tu('printHole') : tu('printShaft'); }
   function getUI() { return { tab: tab, side: side, filter: filter, viewFi: viewFi, cols: colsFor(side) }; }
+  function showAlert(msg) { var a = document.getElementById('tol-alert'); if (!a) return; a.textContent = msg; a.classList.add('on'); }
 
   /* ════════ AUTOTEST DELLA UI (solo nel browser, dopo mount) — la parete e le schede devono dire esattamente quello che dice limits() ════════ */
   function uiTest() {
@@ -1298,6 +1394,26 @@ var TolISO = (function () {
     pushRecent('40 H7/g6'); $('tol-recent').querySelector('[data-quick="40 H7/g6"]').click();
     ck('recenti: richiamo coppia → scheda ACCOPPIAMENTO con entrambe le classi', tab === 'fit' && $('tol-d').value === '40' && $('tol-s-let').value === 'g' && $('tol-s-gr').value === '6');
     recent = keepRecent; try { localStorage.setItem('tolIso.recent', JSON.stringify(recent)); } catch (e) {} renderRecent();
+    /* 14. disegno dell'accoppiamento: presente con due classi, geometria in scala dichiarata */
+    setTab('fit'); $('tol-d').value = '25'; $('tol-h-let').value = 'H'; $('tol-h-gr').value = '7'; $('tol-s-let').value = 'g'; $('tol-s-gr').value = '6'; render();
+    ck('disegno: SVG presente con H7/g6', !!$('tol-fitdraw-box').querySelector('svg.tol-fitdraw'));
+    (function () { var H = limits('hole', 'H', 7, 25), S = limits('shaft', 'g', 6, 25), g = fitDrawGeom(H, S, 25);
+      ck('disegno: zona foro alta IT7·s/2 e zona albero IT6·s/2', Math.abs((g.hole.min - g.hole.max) - H.it * g.s / 2) < 1e-9 && Math.abs((g.shaft.min - g.shaft.max) - S.it * g.s / 2) < 1e-9);
+      ck('disegno: gioco minimo in px = (EI − es)·s/2', Math.abs((g.shaft.max - g.hole.min) - (H.lo - S.up) * g.s / 2) < 1e-9);
+      ck('disegno: lo scostamento più grande vale 28 px', Math.abs(Math.max(Math.abs(H.up), Math.abs(H.lo), Math.abs(S.up), Math.abs(S.lo)) * g.s - 28) < 1e-9);
+      ck('disegno: ingrandimento dichiarato = s / scala vera', Math.abs(g.k - g.s / (150 / 25000)) < 1e-9);
+      var P = limits('shaft', 'p', 6, 25), gp = fitDrawGeom(H, P, 25);
+      ck('disegno: H7/p6 albero max sopra foro min (interferenza)', gp.shaft.max < gp.hole.min && /interferenza max/.test((function () { $('tol-s-let').value = 'p'; render(); return $('tol-fitdraw-box').textContent; })()));
+    })();
+    $('tol-s-let').value = ''; render(); ck('disegno: solo foro → SVG comunque presente', !!$('tol-fitdraw-box').querySelector('svg'));
+    $('tol-h-let').value = ''; render(); ck('disegno: nessuna classe → niente SVG', !$('tol-fitdraw-box').querySelector('svg'));
+    /* 15. campo unico: quota completa nel campo Ø */
+    setTab('hole'); $('tol-d').value = '40 g6'; $('tol-d').dispatchEvent(new Event('change'));
+    ck('campo unico: «40 g6» → scheda ALBERO, Ø 40, g6', tab === 'shaft' && $('tol-d').value === '40' && $('tol-s-let').value === 'g' && $('tol-s-gr').value === '6');
+    $('tol-d').value = '25 H7/g6'; $('tol-d').dispatchEvent(new Event('change'));
+    ck('campo unico: «25 H7/g6» → ACCOPPIAMENTO', tab === 'fit' && $('tol-d').value === '25' && $('tol-h-gr').value === '7');
+    $('tol-d').value = '25 XYZ'; $('tol-d').dispatchEvent(new Event('change'));
+    ck('campo unico: testo non valido → campo segnato in rosso, niente cambia', $('tol-d-wrap').classList.contains('tol-bad') && tab === 'fit');
     /* 13. virgola dal tastierino del telefono: «25,5» e «25.5» valgono uguale, nel Ø e nel misurato */
     setTab('hole'); $('tol-d').value = '25,5'; $('tol-h-let').value = 'H'; $('tol-h-gr').value = '7'; $('tol-m').value = '25,51'; rebuildTables(); render();
     ck('virgola: Ø 25,5 accettato (fascia 24…30) e misura 25,51 DENTRO', /> 24 … 30/.test($('tol-band').textContent) && /DENTRO/.test($('tol-sum-txt').textContent) && /Ø25,5 H7/.test($('tol-sum-txt').textContent));
@@ -1485,8 +1601,8 @@ var TolISO = (function () {
     return { pass: pass, fail: fail, total: pass + fail, failures: failures };
   }
 
-  return { limits: limits, fit: fit, dim: dim, formats: formats, parts: parts, devStr: devStr, provenienza: provenienza, NORME: NORME, parse: parse, parseClass: parseClass, mount: mount, setLang: setLang, selfTest: selfTest, uiTest: uiTest, getUI: getUI, printLabel: printLabel,
-           _diagramGeom: diagramGeom, version: '3.4' };
+  return { limits: limits, fit: fit, dim: dim, formats: formats, parts: parts, devStr: devStr, provenienza: provenienza, NORME: NORME, parse: parse, parseClass: parseClass, mount: mount, setLang: setLang, selfTest: selfTest, uiTest: uiTest, getUI: getUI, printLabel: printLabel, showAlert: showAlert, _fitDrawGeom: fitDrawGeom,
+           _diagramGeom: diagramGeom, version: '3.5' };
 })();
 /* ══════════ TOL-ISO:JS END ══════════ */
 
@@ -1500,9 +1616,29 @@ var TolISO = (function () {
     try { localStorage.setItem('tolIso.lang', l); } catch (e) {}
   }
   Array.prototype.forEach.call(document.querySelectorAll('.lang-chip'), function (b) { b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang')); }); });
-  TolISO.mount();
+  /* Avvio protetto: un errore non lascia mai la pagina bianca, ma un messaggio leggibile (da fotografare e mandare) */
+  function fail(msg) { var a = document.getElementById('tol-alert'); if (a) { a.textContent = 'Errore: ' + msg + ' — ricarica la pagina; se resta, fotografa questo messaggio e mandalo a UTR.'; a.classList.add('on'); } }
+  window.addEventListener('error', function (e) { fail((e && e.message) || 'sconosciuto'); });
+  try { TolISO.mount(); } catch (e) { fail(e && e.message ? e.message : String(e)); }
   var l0 = 'it'; try { l0 = localStorage.getItem('tolIso.lang') || 'it'; } catch (e) {}
   if (l0 !== 'it') applyLang(l0);
+
+  /* Aiuto «?» */
+  var helpBox = document.getElementById('tol-help');
+  document.getElementById('tol-help-btn').addEventListener('click', function () { helpBox.classList.toggle('on'); if (helpBox.classList.contains('on')) helpBox.scrollIntoView({ block: 'nearest' }); });
+  document.getElementById('tol-help-close').addEventListener('click', function () { helpBox.classList.remove('on'); });
+  /* Rete: pallino verde online, ambra offline (l'app funziona lo stesso) */
+  function net() { var on = navigator.onLine !== false; document.getElementById('tol-net').classList.toggle('off', !on); document.getElementById('tol-net-txt').textContent = on ? 'online' : (document.documentElement.lang === 'en' ? 'offline · works from cache' : 'offline · funziona dalla memoria'); }
+  window.addEventListener('online', net); window.addEventListener('offline', net); net();
+  /* Autoverifica all'avvio: il nucleo si ricontrolla da solo (≈ 2000 valori di riferimento) ogni volta che l'app parte.
+     Se fallisce, avviso rosso: uno strumento di misura che non è sicuro di sé lo deve dire. */
+  setTimeout(function () {
+    try {
+      var t0 = (window.performance && performance.now) ? performance.now() : 0, r = TolISO.selfTest(), ms = t0 ? Math.round(performance.now() - t0) : null, el = document.getElementById('tol-check');
+      if (r.fail) { el.className = 'tol-check ko'; el.textContent = 'AUTOVERIFICA FALLITA: ' + r.fail + ' errori'; TolISO.showAlert('Autoverifica fallita (' + r.fail + ' errori su ' + r.total + '): non usare i valori di questa copia. Ricarica la pagina o contatta UTR.'); }
+      else { el.className = 'tol-check ok'; el.textContent = (document.documentElement.lang === 'en' ? 'self-check at start-up: ' : 'autoverifica all\'avvio: ') + r.pass + '/' + r.total + ' OK' + (ms !== null ? ' · ' + ms + ' ms' : ''); }
+    } catch (e) { fail('autoverifica: ' + (e && e.message ? e.message : e)); }
+  }, 50);
 
   /* Stampa: dalla scheda FORO/ALBERO esce la parete intera in A3 orizzontale; da ACCOPPIAMENTO il calcolo in A4 */
   var pageStyle = document.getElementById('tol-page-style');
@@ -1511,7 +1647,8 @@ var TolISO = (function () {
     document.body.classList.toggle('tol-print-table', isTable);
     pageStyle.textContent = isTable ? '@page { size: A3 landscape; margin: 8mm; }' : '@page { size: A4 portrait; margin: 12mm; }';
     var t = document.getElementById('tol-print-title');
-    t.textContent = isTable ? 'UTR Tiberti · Tolleranze ISO 286 · ' + TolISO.printLabel() + ' · µm' : '';
+    var d = new Date(), ds = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    t.textContent = isTable ? 'UTR Tiberti · Tolleranze ISO 286 · ' + TolISO.printLabel() + ' · µm · v' + TolISO.version + ' · ' + ds : 'UTR Tiberti · Tolleranze ISO 286 · v' + TolISO.version + ' · ' + ds;
   }
   window.addEventListener('beforeprint', preparePrint);
   document.getElementById('tol-print-btn').addEventListener('click', function () { preparePrint(); setTimeout(function () { window.print(); }, 30); });
